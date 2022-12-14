@@ -7,7 +7,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="../static/assets/css/main.css" />
-
+	<link rel="icon" href="{{ url_for('static', filename='images/car_crash.png') }}">
 	<noscript>
 		<link rel="stylesheet" href="../static/assets/css/noscript.css" />
 	</noscript>
@@ -106,7 +106,7 @@
 					}).addTo(map);
 
 					L.marker([25.0305061, 121.5289971]).addTo(map)
-						.bindPopup('HTML<br>測試')
+						.bindPopup('Group4<br>測試')
 						.openPopup();
 
 					L.circle([25.0305061, 121.5289971], { radius: 200 }).addTo(map);

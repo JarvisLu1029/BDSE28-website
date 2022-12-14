@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+<select class="myoption" id="mySelect">
+    <option value="option1">Option 1</option>
+    <option value="option2">Option 2</option>
+    <option value="option3">Option 3</option>
+</select>
+
+<select class="myoption2" id="mySelect2">
+    <option value="option4">Option 1</option>
+    <option value="option5">Option 2</option>
+    <option value="option6">Option 3</option>
+</select>
+
+<button id="btn_request">取得臺北市咖啡廳列表</button>
+
+<div class="result"></div>
+
+<script>
+
+    const selectElement = document.querySelector('.myoption');
+    const selectElement2 = document.querySelector('.myoption2');
+
+    document.querySelector('button#btn_request').addEventListener('click', function(event) {
+        const result = document.querySelector('.result');
+        if (selectElement.value == "option1" & selectElement2.value == "option5"){
+            result.textContent = `You like ${selectElement.value}`;
+        }
+               
+        
+        // fetch('http://localhost:5000/taipei',{
+        //     method: "GET"
+        // }).then(function(response){
+        //     return response.json();
+        // }).then(function(arr){
+        //     if( layerGroup != null && map.hasLayer(layerGroup) ) {
+        //         layerGroup.clearLayers();
+        //         map.removeLayer(layerGroup);
+
+        //         //變數初始化
+        //         layerGroup = null;
+        //         arrLayers = [];
+        //     }
+        //     for(let o of arr){
+        //         let marker = L.marker([o['latitude'], o['longitude']])
+        //         .bindPopup(`${o['name']}<br><a href="${o['url']}" target="_blank">連結</a>`)
+        //         .openPopup();
+
+        //         //自訂事件
+        //         marker.addEventListener('click', function(event){
+        //             console.log(o);
+        //         });
+
+        //         //將 markers 各別放到空陣列 arrLayers 當中
+        //         arrLayers.push(marker);
+        //     }
+
+        //     //迴圈執行完畢後，將 arrLayers 放到 layerGroup 當中
+        //     layerGroup = L.layerGroup(arrLayers);
+
+        //     //將 layerGroup 放到 map 當中
+        //     layerGroup.addTo(map);
+        //     });
+    });
+</script>
+
+
+</body>
+</html>
