@@ -1,79 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
 
+    <select class="year_option" id="year_Select">
+        <option selected>請選擇年份</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+    </select>
 
-<select class="myoption" id="mySelect">
-    <option value="option1">Option 1</option>
-    <option value="option2">Option 2</option>
-    <option value="option3">Option 3</option>
-</select>
+    <select class="location_option" id="location_Select">
+        <option selected>請選擇縣市</option>
+        <option value="基隆市">基隆市</option>
+        <option value="台北市">台北市</option>
+        <option value="新北市">新北市</option>
+        <option value="桃園縣">桃園縣</option>
+        <option value="新竹市">新竹市</option>
+        <option value="新竹縣">新竹縣</option>
+        <option value="苗栗縣">苗栗縣</option>
+        <option value="台中市">台中市</option>
+        <option value="台中縣">台中縣</option>
+        <option value="彰化縣">彰化縣</option>
+        <option value="南投縣">南投縣</option>
+        <option value="雲林縣">雲林縣</option>
+        <option value="嘉義市">嘉義市</option>
+        <option value="嘉義縣">嘉義縣</option>
+        <option value="台南市">台南市</option>
+        <option value="台南縣">台南縣</option>
+        <option value="高雄市">高雄市</option>
+        <option value="高雄縣">高雄縣</option>
+        <option value="屏東縣">屏東縣</option>
+        <option value="台東縣">台東縣</option>
+        <option value="花蓮縣">花蓮縣</option>
+        <option value="宜蘭縣">宜蘭縣</option>
+        <option value="澎湖縣">澎湖縣</option>
+        <option value="金門縣">金門縣</option>
+        <option value="連江縣">連江縣</option>
+    </select>
 
-<select class="myoption2" id="mySelect2">
-    <option value="option4">Option 1</option>
-    <option value="option5">Option 2</option>
-    <option value="option6">Option 3</option>
-</select>
-
-<button id="btn_request">取得臺北市咖啡廳列表</button>
-
-<div class="result"></div>
-
-<script>
-
-    const selectElement = document.querySelector('.myoption');
-    const selectElement2 = document.querySelector('.myoption2');
-
-    document.querySelector('button#btn_request').addEventListener('click', function(event) {
-        const result = document.querySelector('.result');
-        if (selectElement.value == "option1" & selectElement2.value == "option5"){
-            result.textContent = `You like ${selectElement.value}`;
+    <style>
+        button {
+            float: right;
         }
-               
-        
-        // fetch('http://localhost:5000/taipei',{
-        //     method: "GET"
-        // }).then(function(response){
-        //     return response.json();
-        // }).then(function(arr){
-        //     if( layerGroup != null && map.hasLayer(layerGroup) ) {
-        //         layerGroup.clearLayers();
-        //         map.removeLayer(layerGroup);
+    </style>
+    <button id="btn_request">送出查詢</button>
 
-        //         //變數初始化
-        //         layerGroup = null;
-        //         arrLayers = [];
-        //     }
-        //     for(let o of arr){
-        //         let marker = L.marker([o['latitude'], o['longitude']])
-        //         .bindPopup(`${o['name']}<br><a href="${o['url']}" target="_blank">連結</a>`)
-        //         .openPopup();
+    <div class="result"></div>
 
-        //         //自訂事件
-        //         marker.addEventListener('click', function(event){
-        //             console.log(o);
-        //         });
+    <script>
 
-        //         //將 markers 各別放到空陣列 arrLayers 當中
-        //         arrLayers.push(marker);
-        //     }
+        const selectYear = document.querySelector('.year_option');
+        const selectLocation = document.querySelector('.location_option');
 
-        //     //迴圈執行完畢後，將 arrLayers 放到 layerGroup 當中
-        //     layerGroup = L.layerGroup(arrLayers);
+        document.querySelector('button#btn_request').addEventListener('click', function (event) {
+            const result = document.querySelector('.result');
+            if (selectYear.value == "2018" & selectLocation.value == "台北市") {
+                result.textContent = `You like ${selectYear.value}`;
+            }
 
-        //     //將 layerGroup 放到 map 當中
-        //     layerGroup.addTo(map);
-        //     });
-    });
-</script>
+            // fetch('http://localhost:5000/taipei',{
+            //     method: "GET"
+            // }).then(function(response){
+            //     return response.json();
+            // }).then(function(arr){
+            //     if( layerGroup != null && map.hasLayer(layerGroup) ) {
+            //         layerGroup.clearLayers();
+            //         map.removeLayer(layerGroup);
+
+            //         //變數初始化
+            //         layerGroup = null;
+            //         arrLayers = [];
+            //     }
+            //     for(let o of arr){
+            //         let marker = L.marker([o['latitude'], o['longitude']])
+            //         .bindPopup(`${o['name']}<br><a href="${o['url']}" target="_blank">連結</a>`)
+            //         .openPopup();
+
+            //         //自訂事件
+            //         marker.addEventListener('click', function(event){
+            //             console.log(o);
+            //         });
+
+            //         //將 markers 各別放到空陣列 arrLayers 當中
+            //         arrLayers.push(marker);
+            //     }
+
+            //     //迴圈執行完畢後，將 arrLayers 放到 layerGroup 當中
+            //     layerGroup = L.layerGroup(arrLayers);
+
+            //     //將 layerGroup 放到 map 當中
+            //     layerGroup.addTo(map);
+            //     });
+        });
+    </script>
 
 
 </body>
+
 </html>
