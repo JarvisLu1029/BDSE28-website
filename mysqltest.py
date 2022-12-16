@@ -20,6 +20,31 @@ def index():
 def location():
     return render_template('location.html')
 
+@app.route('/option')
+def option():
+    return render_template('optiontest.html')
+
+
+@app.route('/location_show')
+def location_show():
+    table_taipei2018 = db.Table('taipei_2018' , metadata , autoload=True , autoload_with=engine)
+    query = db.select(table_taipei2018)
+    proxy = connection.execute(query)
+    
+    latlng = []
+    mylist = []
+    
+    # 回傳是一個list
+    for i in proxy.fetchall():
+        latlng.append(i[0])
+        latlng.append(i[1])
+        
+    mylist.extend(latlng)
+    return latlng
+    connection.close()
+    engine.dispose()
+
+
 @app.route('/model')
 def model():
     return render_template('model.html')
