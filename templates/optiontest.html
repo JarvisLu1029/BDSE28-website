@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+
 </head>
 
 <body>
@@ -56,8 +59,27 @@
     <button id="btn_request">送出查詢</button>
 
     <div class="result"></div>
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+
+    <div id="map" class="box" style="height: 600px; width: 100%;"></div>
 
     <script>
+
+        let map = L.map('map').setView([25.0339145, 121.5412233], 13);
+
+        //初始化地圖圖層(預設)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([25.0305061, 121.5289971]).addTo(map)
+						.bindPopup('Group4<br>測試')
+						.openPopup();
+
+
+        //設定圖層群組
+        let layerGroup = null;
+        let arrLayers = [];
 
         const selectYear = document.querySelector('.year_option');
         const selectLocation = document.querySelector('.location_option');
@@ -65,42 +87,53 @@
         document.querySelector('button#btn_request').addEventListener('click', function (event) {
             const result = document.querySelector('.result');
             if (selectYear.value == "2018" & selectLocation.value == "台北市") {
-                result.textContent = `You like ${selectYear.value}`;
+                fetch('/location_show',{method:"GET"})
+                .then(function(response){
+                    return response.json();
+                })
+                // .then(function(data) {
+                //     result.textContent = `You like ${selectYear.value} You like ${data}`  
+                // })
+                .then(function(arr){
+                    result.textContent = `You like 2 ${arr}`
+                    console.log(arr)
+                    if( layerGroup != null && map.hasLayer(layerGroup) ) {
+                        layerGroup.clearLayers();
+                        map.removeLayer(layerGroup);
+
+                        //變數初始化
+                        layerGroup = null;
+                        arrLayers = [];
+                    }
+                    for (i in range (0, len(arr) , 2) ){
+                        lat = arr[i]
+                        lng = arr[i+1]
+                        let marker = L.marker([lat,lng])
+                        .bindPopup('test')
+                        .openPopup();
+                    
+                    // for(let o of arr){
+                    //     let marker = L.marker([o,o2])
+                    //     .bindPopup('test')
+                    //     .openPopup();
+
+                        marker.addEventListener('click', function(event){
+                            console.log(lat,lng);
+                        });
+
+                        //將 markers 各別放到空陣列 arrLayers 當中
+                        arrLayers.push(marker);
+                        }
+
+            //迴圈執行完畢後，將 arrLayers 放到 layerGroup 當中
+                    layerGroup = L.layerGroup(arrLayers);
+
+            //將 layerGroup 放到 map 當中
+                    layerGroup.addTo(map);
+                });
+
             }
 
-            // fetch('http://localhost:5000/taipei',{
-            //     method: "GET"
-            // }).then(function(response){
-            //     return response.json();
-            // }).then(function(arr){
-            //     if( layerGroup != null && map.hasLayer(layerGroup) ) {
-            //         layerGroup.clearLayers();
-            //         map.removeLayer(layerGroup);
-
-            //         //變數初始化
-            //         layerGroup = null;
-            //         arrLayers = [];
-            //     }
-            //     for(let o of arr){
-            //         let marker = L.marker([o['latitude'], o['longitude']])
-            //         .bindPopup(`${o['name']}<br><a href="${o['url']}" target="_blank">連結</a>`)
-            //         .openPopup();
-
-            //         //自訂事件
-            //         marker.addEventListener('click', function(event){
-            //             console.log(o);
-            //         });
-
-            //         //將 markers 各別放到空陣列 arrLayers 當中
-            //         arrLayers.push(marker);
-            //     }
-
-            //     //迴圈執行完畢後，將 arrLayers 放到 layerGroup 當中
-            //     layerGroup = L.layerGroup(arrLayers);
-
-            //     //將 layerGroup 放到 map 當中
-            //     layerGroup.addTo(map);
-            //     });
         });
     </script>
 
