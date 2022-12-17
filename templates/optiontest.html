@@ -10,58 +10,59 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
         integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+        integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
 
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css"></link>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css">
+    </link>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
 
     <style>
-		.marker-cluster-small {
-			background-color: rgba(181, 226, 140, 0.6);
-		}
+        .marker-cluster-small {
+            background-color: rgba(181, 226, 140, 0.6);
+        }
 
-		.marker-cluster-small div {
-			background-color: rgba(110, 204, 57, 0.6);
-		}
+        .marker-cluster-small div {
+            background-color: rgba(110, 204, 57, 0.6);
+        }
 
-		.marker-cluster-medium {
-			background-color: rgba(241, 211, 87, 0.6);
-		}
+        .marker-cluster-medium {
+            background-color: rgba(241, 211, 87, 0.6);
+        }
 
-		.marker-cluster-medium div {
-			background-color: rgba(240, 194, 12, 0.6);
-		}
+        .marker-cluster-medium div {
+            background-color: rgba(240, 194, 12, 0.6);
+        }
 
-		.marker-cluster-large {
-			background-color: rgba(253, 156, 115, 0.6);
-		}
+        .marker-cluster-large {
+            background-color: rgba(253, 156, 115, 0.6);
+        }
 
-		.marker-cluster-large div {
-			background-color: rgba(241, 128, 23, 0.6);
-		}
+        .marker-cluster-large div {
+            background-color: rgba(241, 128, 23, 0.6);
+        }
 
-		.marker-cluster {
-			background-clip: padding-box;
-			border-radius: 20px;
-		}
+        .marker-cluster {
+            background-clip: padding-box;
+            border-radius: 20px;
+        }
 
-		.marker-cluster div {
-			width: 30px;
-			height: 30px;
-			margin-left: 5px;
-			margin-top: 5px;
+        .marker-cluster div {
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+            margin-top: 5px;
 
-			text-align: center;
-			border-radius: 15px;
-			font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
-		}
+            text-align: center;
+            border-radius: 15px;
+            font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+        }
 
-		.marker-cluster span {
-			line-height: 30px;
-		}
-	</style>
+        .marker-cluster span {
+            line-height: 30px;
+        }
+    </style>
 
 </head>
 
@@ -129,7 +130,7 @@
             .bindPopup('Group4<br>測試')
             .openPopup();
 
-		L.circle([25.0305061, 121.5289971], { radius: 200 }).addTo(map);
+        L.circle([25.0305061, 121.5289971], { radius: 200 }).addTo(map);
 
 
         //設定圖層群組
@@ -138,52 +139,52 @@
 
         const selectYear = document.querySelector('.year_option');
         const selectLocation = document.querySelector('.location_option');
-        
-        function getlocation(getsql){    
+
+        function getlocation(getsql) {
             fetch(getsql, {
-                    method: "GET"
-                }).then(function (response) {
-                    return response.json();
-                }).then(function (arr) {
-                    if (layerGroup != null && map.hasLayer(layerGroup)) {
-                        layerGroup.clearLayers();
-                        map.removeLayer(layerGroup);
+                method: "GET"
+            }).then(function (response) {
+                return response.json();
+            }).then(function (arr) {
+                if (layerGroup != null && map.hasLayer(layerGroup)) {
+                    layerGroup.clearLayers();
+                    map.removeLayer(layerGroup);
 
-                        layerGroup = null;
-                        arrLayers = [];
-                    }
-                    var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, showCoverageOnHover: false, zoomToBoundsOnClick: false });
-                    for (let i = 0; i < arr.length; i += 2) {
-                        let lat = arr[i];
-                        let lng = arr[i + 1];
-                        let marker = markers.addLayer(L.marker([lat, lng]))
-                            .bindPopup('test')
-                            .openPopup();
+                    layerGroup = null;
+                    arrLayers = [];
+                }
+                var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, showCoverageOnHover: false, zoomToBoundsOnClick: false });
+                for (let i = 0; i < arr.length; i += 2) {
+                    let lat = arr[i];
+                    let lng = arr[i + 1];
+                    let marker = markers.addLayer(L.marker([lat, lng]))
+                        .bindPopup('test')
+                        .openPopup();
 
-                        marker.addEventListener('click', function (event) {
-                            console.log(lat, lng);
-                        });
-                            //將 markers 各別放到空陣列 arrLayers 當中
-                        arrLayers.push(marker);
-                        }
-                        //迴圈執行完畢後，將 arrLayers 放到 layerGroup 當中
-                    layerGroup = L.layerGroup(arrLayers);
-                        //將 layerGroup 放到 map 當中
-                    layerGroup.addTo(map);
-                }); 
-            }
+                    marker.addEventListener('click', function (event) {
+                        console.log(lat, lng);
+                    });
+                    //將 markers 各別放到空陣列 arrLayers 當中
+                    arrLayers.push(marker);
+                }
+                //迴圈執行完畢後，將 arrLayers 放到 layerGroup 當中
+                layerGroup = L.layerGroup(arrLayers);
+                //將 layerGroup 放到 map 當中
+                layerGroup.addTo(map);
+            });
+        }
 
         document.querySelector('button#btn_request').addEventListener('click', function (event) {
             const result = document.querySelector('.result');
             switch (selectYear.value && selectLocation.value) {
-                case ("2018" && "台北市") :
+                case ("2018" && "台北市"):
                     getlocation('/location_show')
-                break;
-                case ("2018" && "新北市") :
+                    break;
+                case ("2018" && "新北市"):
                     getlocation('/newtaipei_2018')
-                break;
+                    break;
             }
-         
+
         });
     </script>
 
