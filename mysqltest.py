@@ -2,15 +2,16 @@ from flask import Flask, render_template
 from flask_moment import Moment
 import sqlalchemy as db
 from sqlalchemy import func
+import cryptography
 
 app = Flask(__name__)
 moment = Moment(app)
 
 # sql setting
-# engine = db.create_engine("mysql+pymysql://root:123456@172.10.0.9:3306/Mydatabase")
-# table = 'Accident'
-# metadata = db.MetaData()
-# table_accident = db.Table(table , metadata , autoload=True , autoload_with=engine)
+engine = db.create_engine("mysql+pymysql://root:Asd_102938@localhost/Mydatabase")
+metadata = db.MetaData()
+connection = engine.connect()
+
 
 @app.route('/')
 def index():
@@ -40,7 +41,7 @@ def location_show():
         latlng.append(i[1])
         
     mylist.extend(latlng)
-    return latlng
+    return mylist
     connection.close()
     engine.dispose()
 

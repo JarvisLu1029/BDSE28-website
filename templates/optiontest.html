@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+        integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
 
 </head>
 
@@ -57,11 +58,12 @@
         }
     </style>
     <button id="btn_request">送出查詢</button>
-
-    <div class="result"></div>
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
-
     <div id="map" class="box" style="height: 600px; width: 100%;"></div>
+    <div class="result"></div>
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+        integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+
+
 
     <script>
 
@@ -73,8 +75,8 @@
         }).addTo(map);
 
         L.marker([25.0305061, 121.5289971]).addTo(map)
-						.bindPopup('Group4<br>測試')
-						.openPopup();
+            .bindPopup('Group4<br>測試')
+            .openPopup();
 
 
         //設定圖層群組
@@ -87,56 +89,48 @@
         document.querySelector('button#btn_request').addEventListener('click', function (event) {
             const result = document.querySelector('.result');
             if (selectYear.value == "2018" & selectLocation.value == "台北市") {
-                fetch('/location_show',{method:"GET"})
-                .then(function(response){
+                fetch('/location_show', {
+                    method: "GET"
+                }).then(function (response) {
                     return response.json();
-                })
-                // .then(function(data) {
-                //     result.textContent = `You like ${selectYear.value} You like ${data}`  
-                // })
-                .then(function(arr){
-                    result.textContent = `You like 2 ${arr}`
-                    console.log(arr)
-                    if( layerGroup != null && map.hasLayer(layerGroup) ) {
+                }).then(function (arr) {
+
+                    if (layerGroup != null && map.hasLayer(layerGroup)) {
                         layerGroup.clearLayers();
                         map.removeLayer(layerGroup);
 
-                        //變數初始化
                         layerGroup = null;
                         arrLayers = [];
                     }
-                    for (i in range (0, len(arr) , 2) ){
-                        lat = arr[i]
-                        lng = arr[i+1]
-                        let marker = L.marker([lat,lng])
-                        .bindPopup('test')
-                        .openPopup();
-                    
-                    // for(let o of arr){
-                    //     let marker = L.marker([o,o2])
-                    //     .bindPopup('test')
-                    //     .openPopup();
+                    result.textContent = `You like 2 ${arr}`;
+                    for (let i = 0; i < arr.length; i += 2) {
+                        let lat = arr[i];
+                        let lng = arr[i + 1];
+                        let marker = L.marker([lat, lng])
+                            .bindPopup('test')
+                            .openPopup();
 
-                        marker.addEventListener('click', function(event){
-                            console.log(lat,lng);
+                        marker.addEventListener('click', function (event) {
+                            console.log(lat, lng);
                         });
 
                         //將 markers 各別放到空陣列 arrLayers 當中
                         arrLayers.push(marker);
-                        }
+                    }
 
-            //迴圈執行完畢後，將 arrLayers 放到 layerGroup 當中
+                    //迴圈執行完畢後，將 arrLayers 放到 layerGroup 當中
                     layerGroup = L.layerGroup(arrLayers);
 
-            //將 layerGroup 放到 map 當中
+                    //將 layerGroup 放到 map 當中
                     layerGroup.addTo(map);
+
+                    result.textContent = `You like 3 ${arr}`;
                 });
 
             }
 
         });
     </script>
-
 
 </body>
 
