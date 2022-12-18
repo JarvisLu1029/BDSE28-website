@@ -8,7 +8,7 @@ app = Flask(__name__)
 moment = Moment(app)
 
 # sql setting
-engine = db.create_engine("mysql+pymysql://root:passw0rd!@localhost/Mydatabase")
+engine = db.create_engine("mysql+pymysql://root:Asd_102938@localhost/Accident")
 metadata = db.MetaData()
 connection = engine.connect()
 
@@ -24,8 +24,13 @@ def location():
 def option():
     return render_template('optiontest.html')
 
+# 接收location.html的year loc選項 並抓取該資料庫table的值
+@app.route('/option/<loc_year>')
+def location_year(loc_year):
+    table_location = db.Table(f'{loc_year}', metadata , autoload=True , autoload_with=engine)
+    query = db.select(table_location)
+    proxy = connection.execute(query)
 
-def get_latlng_list(proxy):
     latlng = []
     mylist = []
     
@@ -35,23 +40,6 @@ def get_latlng_list(proxy):
         
     mylist.extend(latlng)
     return mylist
-
-@app.route('/location_show')
-def location_show():
-    table_taipei2018 = db.Table('taipei_2018' , metadata , autoload=True , autoload_with=engine)
-    query = db.select(table_taipei2018)
-    proxy = connection.execute(query)
-    
-    return get_latlng_list(proxy)
-
-@app.route('/newtaipei_2018')
-def newtaipei_2018():
-    table_newtaipei_2018 = db.Table('newtaipei_2018', metadata , autoload=True , autoload_with=engine)
-    query = db.select(table_newtaipei_2018)
-    proxy = connection.execute(query)
-
-    return get_latlng_list(proxy)
-
 
 @app.route('/model')
 def model():
