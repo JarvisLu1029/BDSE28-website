@@ -8,7 +8,7 @@ app = Flask(__name__)
 moment = Moment(app)
 
 # sql setting
-engine = db.create_engine("mysql+pymysql://root:passw0rd!@localhost/Mydatabase")
+engine = db.create_engine("mysql+pymysql://root:Asd_102938@localhost/Accident")
 metadata = db.MetaData()
 connection = engine.connect()
 
@@ -28,15 +28,15 @@ def option():
 @app.route('/option/<loc_year>')
 def location_year(loc_year):
     table_location = db.Table(f'{loc_year}', metadata , autoload=True , autoload_with=engine)
-    query = db.select(table_location)
+    query = db.select(table_location.c.lat, table_location.c.lng)
     proxy = connection.execute(query)
 
     latlng = []
     mylist = []
     
     for i in proxy.fetchall():
-        latlng.append(i[0])
-        latlng.append(i[1])
+        latlng.append(i.lat)
+        latlng.append(i.lng)
         
     mylist.extend(latlng)
     return mylist
