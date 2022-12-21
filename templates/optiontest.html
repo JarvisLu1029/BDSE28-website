@@ -152,7 +152,7 @@
                     layerGroup = null;
                     arrLayers = [];
                 }
-                var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, showCoverageOnHover: false, zoomToBoundsOnClick: false });
+                var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, showCoverageOnHover: true, zoomToBoundsOnClick: true });
 
                 // 把資料庫取出來的list 緯度 經度做排列
                 for (let i = 0; i < arr.length; i += 2) {

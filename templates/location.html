@@ -129,28 +129,28 @@
 
 					<select class="location_option" id="location_Select">
 						<option selected>請選擇縣市</option>
-						<option value="Keelung">基隆市</option>
-						<option value="Taipei">台北市</option>
-						<option value="NewTaipeiCity">新北市</option>
-						<option value="Taoyuan">桃園市</option>
-						<option value="Hsinchu">新竹市</option>
-						<option value="HsinchuCounty">新竹縣</option>
-						<option value="MiaoliCounty">苗栗縣</option>
-						<option value="Taichung">台中市</option>
-						<option value="ChanghuaCounty">彰化縣</option>
-						<option value="NantouCounty">南投縣</option>
-						<option value="YunlinCounty">雲林縣</option>
-						<option value="Chiayi">嘉義市</option>
-						<option value="ChiayiCounty">嘉義縣</option>
-						<option value="Tainan">台南市</option>
-						<option value="Kaohsiung">高雄市</option>
-						<option value="PingtungCounty">屏東縣</option>
-						<option value="TaitungCounty">台東縣</option>
-						<option value="HualienCounty">花蓮縣</option>
-						<option value="YilanCounty">宜蘭縣</option>
-						<option value="PenghuCounty">澎湖縣</option>
-						<option value="KinmenCounty">金門縣</option>
-						<option value="LienchiangCounty">連江縣</option>
+						<option value="keelung">基隆市</option>
+						<option value="taipei">台北市</option>
+						<option value="newtaipeicity">新北市</option>
+						<option value="taoyuan">桃園市</option>
+						<option value="hsinchu">新竹市</option>
+						<option value="hsinchucounty">新竹縣</option>
+						<option value="miaolicounty">苗栗縣</option>
+						<option value="taichung">台中市</option>
+						<option value="changhuacounty">彰化縣</option>
+						<option value="nantoucounty">南投縣</option>
+						<option value="yunlincounty">雲林縣</option>
+						<option value="chiayi">嘉義市</option>
+						<option value="chiayicounty">嘉義縣</option>
+						<option value="tainan">台南市</option>
+						<option value="kaohsiung">高雄市</option>
+						<option value="pingtungcounty">屏東縣</option>
+						<option value="taitungcounty">台東縣</option>
+						<option value="hualiencounty">花蓮縣</option>
+						<option value="yilancounty">宜蘭縣</option>
+						<option value="penghucounty">澎湖縣</option>
+						<option value="kinmencounty">金門縣</option>
+						<option value="lienchiangcounty">連江縣</option>
 					</select>
 
 					<style>
@@ -230,7 +230,7 @@
 						}
 						// 依照縣市設定邊界及地圖顯示的座標
 						switch (selectLocation.value) {
-							case ("Keelung"):
+							case ("keelung"):
 								fetch('../static/polygon/keelung.json')
 									.then(response => response.json())
 									.then(data => {
@@ -238,7 +238,7 @@
 									})
 								map.panTo([25.1272072, 121.7367835], 13);
 								break;
-							case ("Taipei"):
+							case ("taipei"):
 								fetch('../static/polygon/taipei.json')
 									.then(response => response.json())
 									.then(data => {
@@ -246,7 +246,7 @@
 									})
 								map.panTo([25.0339145, 121.5412233], 13);
 								break;
-							case ("NewTaipeiCity"):
+							case ("newtaipeicity"):
 								fetch('../static/polygon/newTaipeiCity.json')
 									.then(response => response.json())
 									.then(data => {
@@ -254,7 +254,7 @@
 									})
 								map.panTo([25.0149318, 121.4729936, 15], 13);
 								break;
-							case ("Taoyuan"):
+							case ("taoyuan"):
 								fetch('../static/polygon/taoyuan.json')
 									.then(response => response.json())
 									.then(data => {
@@ -262,7 +262,7 @@
 									})
 								map.panTo([24.991025, 121.2850733], 13);
 								break;
-							case ("Hsinchu"):
+							case ("hsinchu"):
 								fetch('../static/polygon/hsinchu.json')
 									.then(response => response.json())
 									.then(data => {
@@ -270,7 +270,7 @@
 									})
 								map.panTo([24.7835529, 120.9316642], 13);
 								break;
-							case ("HsinchuCounty"):
+							case ("hsinchucounty"):
 								fetch('../static/polygon/hsinchuCounty.json')
 									.then(response => response.json())
 									.then(data => {
@@ -278,7 +278,7 @@
 									})
 								map.panTo([24.8491971, 121.0670444], 5);
 								break;
-							case ("MiaoliCounty"):
+							case ("miaolicounty"):
 								fetch('../static/polygon/miaoliCounty.json')
 									.then(response => response.json())
 									.then(data => {
@@ -286,7 +286,7 @@
 									})
 								map.panTo([24.5456455, 120.8527485], 13);
 								break;
-							case ("Taichung"):
+							case ("taichung"):
 								fetch('../static/polygon/taichung.json')
 									.then(response => response.json())
 									.then(data => {
@@ -294,7 +294,7 @@
 									})
 								map.panTo([24.1459811, 120.6707398], 13);
 								break;
-							case ("ChanghuaCounty"):
+							case ("changhuacounty"):
 								fetch('../static/polygon/changhuaCounty.json')
 									.then(response => response.json())
 									.then(data => {
@@ -302,7 +302,7 @@
 									})
 								map.panTo([23.992187, 120.3230685], 13);
 								break;
-							case ("NantouCounty"):
+							case ("nantoucounty"):
 								fetch('../static/polygon/nantouCounty.json')
 									.then(response => response.json())
 									.then(data => {
@@ -310,7 +310,7 @@
 									})
 								map.panTo([23.9508903, 120.9468249], 13);
 								break;
-							case ("YunlinCounty"):
+							case ("yunlincounty"):
 								fetch('../static/polygon/yunlinCounty.json')
 									.then(response => response.json())
 									.then(data => {
@@ -318,7 +318,7 @@
 									})
 								map.panTo([23.6745746, 120.2945075], 13);
 								break;
-							case ("Chiayi"):
+							case ("chiayi"):
 								fetch('../static/polygon/chiayi.json')
 									.then(response => response.json())
 									.then(data => {
@@ -326,7 +326,7 @@
 									})
 								map.panTo([23.4790323, 120.414277], 13);
 								break;
-							case ("ChiayiCounty"):
+							case ("chiayicounty"):
 								fetch('../static/polygon/chiayiCounty.json')
 									.then(response => response.json())
 									.then(data => {
@@ -334,7 +334,7 @@
 									})
 								map.panTo([23.425616, 120.3974609], 13);
 								break;
-							case ("Tainan"):
+							case ("tainan"):
 								fetch('../static/polygon/tainan.json')
 									.then(response => response.json())
 									.then(data => {
@@ -342,7 +342,7 @@
 									})
 								map.panTo([23.0070342, 120.249638], 13);
 								break;
-							case ("Kaohsiung"):
+							case ("kaohsiung"):
 								fetch('../static/polygon/kaohsiung.json')
 									.then(response => response.json())
 									.then(data => {
@@ -350,7 +350,7 @@
 									})
 								map.panTo([22.6283618, 120.3265012], 13);
 								break;
-							case ("PingtungCounty"):
+							case ("pingtungcounty"):
 								fetch('../static/polygon/pingtungCounty.json')
 									.then(response => response.json())
 									.then(data => {
@@ -358,7 +358,7 @@
 									})
 								map.panTo([22.6053635, 120.5368672], 5);
 								break;
-							case ("TaitungCounty"):
+							case ("taitungcounty"):
 								fetch('../static/polygon/taitungCounty.json')
 									.then(response => response.json())
 									.then(data => {
@@ -366,7 +366,7 @@
 									})
 								map.panTo([22.7221328, 120.6097004], 13);
 								break;
-							case ("HualienCounty"):
+							case ("hualiencounty"):
 								fetch('../static/polygon/hualienCounty.json')
 									.then(response => response.json())
 									.then(data => {
@@ -374,7 +374,7 @@
 									})
 								map.panTo([23.7289695, 121.379031], 13);
 								break;
-							case ("YilanCounty"):
+							case ("yilancounty"):
 								fetch('../static/polygon/yilanCounty.json')
 									.then(response => response.json())
 									.then(data => {
@@ -382,7 +382,7 @@
 									})
 								map.panTo([25.0341146, 121.2601654], 13);
 								break;
-							case ("PenghuCounty"):
+							case ("penghucounty"):
 								fetch('../static/polygon/penghuCounty.json')
 									.then(response => response.json())
 									.then(data => {
@@ -390,7 +390,7 @@
 									})
 								map.panTo([23.5682493, 119.5960847], 13);
 								break;
-							case ("KinmenCounty"):
+							case ("kinmencounty"):
 								fetch('../static/polygon/kinmen.json')
 									.then(response => response.json())
 									.then(data => {
@@ -398,7 +398,7 @@
 									})
 								map.panTo([24.6916992, 118.2699011], 13);
 								break;
-							case ("LienchiangCounty"):
+							case ("lienchiangcounty"):
 								const lienchiangCounty_polygon =
 									polygon = L.polygon(lienchiangCounty_polygon, { color: 'yellow' }).addTo(map);
 								map.panTo([26.139729, 120.0108395], 13);
