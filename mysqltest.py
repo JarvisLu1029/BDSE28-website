@@ -3,12 +3,13 @@ from flask_moment import Moment
 import sqlalchemy as db
 from sqlalchemy import func
 import cryptography
+import geocoder
 
 app = Flask(__name__)
 moment = Moment(app)
 
 # sql setting
-engine = db.create_engine("mysql+pymysql://root:Asd_102938@localhost/Accident")
+engine = db.create_engine("mysql+pymysql://root:passw0rd!@localhost/mydatabase")
 metadata = db.MetaData()
 connection = engine.connect()
 
@@ -44,6 +45,10 @@ def location_year(loc_year):
 @app.route('/model')
 def model():
     return render_template('model.html')
+
+@app.route('/model/<address>')
+def model_address(address):
+    return geocoder.arcgis(f'{address}').latlng
 
 @app.route('/indextest')
 def indexTest():
