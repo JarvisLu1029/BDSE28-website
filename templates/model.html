@@ -61,7 +61,7 @@
 				<header class="major">
 					<span class="date">April 25, 2017</span>
 					<h1>This is a<br />
-						Generic Page</h1>
+						Model Test</h1>
 					<p>Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
 						facilisis ante sed etiam magna interdum congue. Lorem ipsum dolor<br />
 						amet nullam sed etiam veroeros.</p>
@@ -104,30 +104,23 @@
 						attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 					}).addTo(map);
 
-					let layerGroup = null;
-
+					let marker = null;
 
 					document.querySelector('button#btn_request').addEventListener('click', function (event) {
 						const result = document.querySelector('#result');
-
 
 						fetch(`/model/${selectCity.value}${selectDist.value}${inputRoad.value}`, {
 							method: "GET"
 						}).then(function (response) {
 							return response.json();
 						}).then(function (coordinate) {
-							if (layerGroup != null && map.hasLayer(layerGroup)) {
-								layerGroup.clearLayers();
-								map.removeLayer(layerGroup);
-
-								layerGroup = null;
+							if (marker) {
+								marker.remove();
 							}
-							result.textContent = coordinate;
-							// 25.040569992289207,121.56273001877719
 
-							map.panTo([coordinate[0], coordinate[1]], 13);
+							map.panTo([coordinate[0], coordinate[1]], 1);
 
-							L.marker([coordinate[0], coordinate[1]]).addTo(map)
+							marker = L.marker([coordinate[0], coordinate[1]]).addTo(map)
 								.bindPopup(`${coordinate[0]}, ${coordinate[1]}`)
 								.openPopup();
 

@@ -9,7 +9,7 @@ app = Flask(__name__)
 moment = Moment(app)
 
 # sql setting
-engine = db.create_engine("mysql+pymysql://root:passw0rd!@localhost/mydatabase")
+engine = db.create_engine("mysql+pymysql://root:Asd_102938@localhost/accident")
 metadata = db.MetaData()
 connection = engine.connect()
 
