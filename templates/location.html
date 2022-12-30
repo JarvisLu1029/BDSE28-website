@@ -151,7 +151,6 @@
 
 				<button class="button fit" id="btn_request">送出查詢</button>
 
-
 				<hr />
 
 				<!-- leaflet地圖 -->
@@ -168,6 +167,7 @@
 					let layerGroup = null;
 					let arrLayers = [];
 					let polygon;
+
 					const selectYear = document.querySelector('.year_option');
 					const selectLocation = document.querySelector('.location_option');
 
@@ -188,11 +188,12 @@
 							document.getElementById('accident_count').innerText = '車禍數 : ' + arr.length / 2;
 
 							var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, showCoverageOnHover: false, zoomToBoundsOnClick: false });
+
 							for (let i = 0; i < arr.length; i += 2) {
 								let lat = arr[i];
 								let lng = arr[i + 1];
-								let marker = markers.addLayer(L.marker([lat, lng]))
-									.bindPopup(`${lat},${lng}`)
+								let marker = L.marker([lat, lng])
+									.bindPopup(`Latitude: ${lat}<br>Longitude: ${lng}`)
 									.openPopup();
 
 								marker.addEventListener('click', function (event) {
@@ -202,7 +203,7 @@
 								arrLayers.push(marker);
 							}
 							//迴圈執行完畢後，將 arrLayers 放到 layerGroup 當中
-							layerGroup = L.layerGroup(arrLayers);
+							layerGroup = markers.addLayer(L.layerGroup(arrLayers));
 							//將 layerGroup 放到 map 當中
 							layerGroup.addTo(map);
 						});

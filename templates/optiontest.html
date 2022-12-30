@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <!-- leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
         integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
         integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
 
-
+    <!-- marker-cluster -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css">
     </link>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
 
     <style>
@@ -110,7 +110,7 @@
     </style>
     <button id="btn_request">送出查詢</button>
 
-    <div id="map" class="box" style="height: 600px; width: 100%;"></div>
+    <div id="map" class="box" style=" margin: 0 auto; height: 600px; width: 100%;"></div>
 
     <div class="result"></div>
 
@@ -128,7 +128,6 @@
             .openPopup();
 
         L.circle([25.0305061, 121.5289971], { radius: 200 }).addTo(map);
-
 
         //設定圖層群組
         let layerGroup = null;
