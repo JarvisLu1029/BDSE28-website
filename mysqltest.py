@@ -4,6 +4,9 @@ import sqlalchemy as db
 from sqlalchemy import func
 import cryptography
 import geocoder
+import use_model.weather as weather
+
+
 
 app = Flask(__name__)
 moment = Moment(app)
@@ -46,9 +49,13 @@ def location_year(loc_year):
 def model():
     return render_template('model.html')
 
-@app.route('/model/<address>')
-def model_address(address):
-    return geocoder.arcgis(f'{address}').latlng
+# 收到使用者輸入的地址轉成座標
+@app.route('/model/<city_dist>/<road>')
+def model_address(city_dist,road):
+    coo = geocoder.arcgis(f'{city_dist}{road}').latlng
+    weather.weatherAPI(coo)
+    density  = weather.population(f'{city_dist}')
+    return coo
 
 @app.route('/indextest')
 def indexTest():

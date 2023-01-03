@@ -108,7 +108,7 @@
 					document.querySelector('button#btn_request').addEventListener('click', function (event) {
 						const result = document.querySelector('#result');
 
-						fetch(`/model/${selectCity.value}${selectDist.value}${inputRoad.value}`, {
+						fetch(`/model/${selectCity.value}${selectDist.value}/${inputRoad.value}`, {
 							method: "GET"
 						}).then(function (response) {
 							return response.json();

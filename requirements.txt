@@ -1,0 +1,7 @@
+flask
+flask_moment
+pymysql
+sqlalchemy
+uwsgi
+cryptography
+# 編譯密碼?不用的話sql會連線失敗
