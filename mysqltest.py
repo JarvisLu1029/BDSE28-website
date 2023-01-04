@@ -4,7 +4,7 @@ import sqlalchemy as db
 from sqlalchemy import func
 import cryptography
 import geocoder
-import use_model.weather as weather
+import use_model.xgdata as weather
 
 
 
@@ -49,13 +49,25 @@ def location_year(loc_year):
 def model():
     return render_template('model.html')
 
-# 收到使用者輸入的地址轉成座標
+# 接收模型網頁選項輸入的值
 @app.route('/model/<city_dist>/<road>')
 def model_address(city_dist,road):
+
+    # 收到使用者輸入的地址轉成座標
     coo = geocoder.arcgis(f'{city_dist}{road}').latlng
-    weather.weatherAPI(coo)
-    density  = weather.population(f'{city_dist}')
-    return coo
+    xgdic = weather.population(f'{city_dist}',coo)
+    df = weather.dataFill(xgdic)
+    forxg = weather.weatherAPI(df)
+    
+    # 輸出為一個dataframe
+    acc_rank = weather.pred_loc(forxg)
+    
+    # 使用.values屬性獲取DataFrame中所有值的NumPy array
+    values = acc_rank.values
+    # 將NumPy array轉換為Python列表
+    result = values.tolist()
+    
+    return result
 
 @app.route('/indextest')
 def indexTest():
