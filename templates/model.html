@@ -59,12 +59,11 @@
 			<!-- Post -->
 			<section class="post">
 				<header class="major">
-					<span class="date">April 25, 2017</span>
-					<h1>This is a<br />
-						Model Test</h1>
-					<p>Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
+					<span class="date">January 17, 2022</span>
+					<h1>Model</h1>
+					<!-- <p>Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
 						facilisis ante sed etiam magna interdum congue. Lorem ipsum dolor<br />
-						amet nullam sed etiam veroeros.</p>
+						amet nullam sed etiam veroeros.</p> -->
 				</header>
 
 
@@ -89,12 +88,39 @@
 
 				<div id="result"></div>
 
+				<h3>車禍預測級距</h3>
+				<div class="table-wrapper">
+					<table class="alt">
+						<thead>
+							<tr>
+								<th>時間</th>
+								<th>人口密度</th>
+								<th>測站氣壓(hPa)_x</th>
+								<th>相對溼度(%)_x</th>
+								<th>RANK</th>
+							</tr>
+						</thead>
+						<tbody>
+
+
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="4"></td>
+								<td>100.00</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+
+				<hr />
 
 				<script>
 
 					const selectCity = document.querySelector('#city');
 					const selectDist = document.querySelector('#dist');
 					const inputRoad = document.querySelector('#road');
+					let tbody = document.querySelector('table > tbody');
 
 					let map = L.map('map').setView([25.0339145, 121.5412233], 13);
 
@@ -112,19 +138,37 @@
 							method: "GET"
 						}).then(function (response) {
 							return response.json();
-						}).then(function (coordinate) {
+						}).then(function (alldata) {
 							if (marker) {
 								marker.remove();
+								circle.remove();
 							}
 
-							map.panTo([coordinate[0], coordinate[1]], 1);
+							map.panTo([alldata.coordinate[0], alldata.coordinate[1]], 1);
 
-							marker = L.marker([coordinate[0], coordinate[1]]).addTo(map)
-								.bindPopup(`${coordinate[0]}, ${coordinate[1]}`)
+							marker = L.marker([alldata.coordinate[0], alldata.coordinate[1]]).addTo(map)
+								.bindPopup(`${alldata.coordinate[0]}, ${alldata.coordinate[1]}`)
 								.openPopup();
+							circle = L.circle([alldata.coordinate[0], alldata.coordinate[1]], { radius: 200 }).addTo(map);
 
+							// 清空 tbody 底下既有元素，如 tr td 等
+							tbody.innerHTML = '';
+
+							// 將回傳資料動態生成在網頁上
+							for (let i = 0; i < 24; i++) {
+								//輸出對應的 html tag
+								let tr = document.createElement("tr");
+								tr.innerHTML = `<td>${alldata['發生時間'][i]}</td>
+												<td>${alldata['density']}</td>
+												<td>${alldata['測站氣壓(hPa)_x'][i]}</td>
+												<td>${alldata['相對溼度(%)_x'][i]}</td>
+												<td>${alldata['rank'][i]}</td>`
+
+								tbody.appendChild(tr);
+
+
+							}
 						})
-
 					})
 				</script>
 

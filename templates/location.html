@@ -158,7 +158,9 @@
 
 				<script>
 
-					var map = L.map('map').setView([25.0305061, 121.5289971], 13);
+					// var map = L.map('map').setView([25.0305061, 121.5289971], 13);
+					var map = L.map('map', { scrollWheelZoom: false }).setView([25.0305061, 121.5289971], 13);
+
 
 					L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 						attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -378,7 +380,7 @@
 									.then(data => {
 										polygon = L.polygon(data, { color: 'yellow' }).addTo(map);
 									})
-								map.panTo([25.0341146, 121.2601654], 13);
+								map.panTo([24.6927874, 121.7777614], 13);
 								break;
 							case ("penghucounty"):
 								fetch('../static/polygon/penghuCounty.json')
@@ -397,8 +399,13 @@
 								map.panTo([24.6916992, 118.2699011], 13);
 								break;
 							case ("lienchiangcounty"):
-								const lienchiangCounty_polygon =
-									polygon = L.polygon(lienchiangCounty_polygon, { color: 'yellow' }).addTo(map);
+								fetch('../static/polygon/lienchiangCounty.json')
+									.then(response => response.json())
+									.then(datas => {
+										datas.forEach(data => {
+											L.polygon(data, { color: 'yellow' }).addTo(map);
+										});
+									})
 								map.panTo([26.139729, 120.0108395], 13);
 								break;
 						}

@@ -5,7 +5,7 @@ import pandas as pd
 import openpyxl
 import datetime
 import requests , json
-
+import pickle
 
 stream = pd.read_csv('110.csv', low_memory=False)
 stream['總計_流量(PCU)'] = stream['總計_流量(PCU)'].str.findall('\d').str.join('').astype(int)
@@ -24,7 +24,7 @@ def population(county_dist , coo):
     today = datetime.datetime.today()
     
     # 計算隔天日期
-    tomorrow = today + datetime.timedelta(days=1)
+    # tomorrow = today + datetime.timedelta(days=1)
 
     dic = {'year' : f'{today.year}', 
         'month' : f'{today.month}',
@@ -340,6 +340,7 @@ def pred_loc(forxg):
         
         # weather = forxg.iloc[:,-8:-2]
         # df = pd.concat([hour, weather, level],axis=1)
-        
         df = pd.concat([hour,level],axis=1)
+        df = df.rename(columns={0: 'rank'})
+        
         return df
