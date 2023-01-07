@@ -166,6 +166,58 @@
 
 							map.panTo([alldata.coordinate[0], alldata.coordinate[1]], 1);
 
+							switch (alldata['rank'][i][4]) {
+								case (1):
+									let caution_marker = L.icon({
+										iconUrl: '../static/images/cross-road(1).png',
+										iconSize: [30, 45],
+										iconAnchor: [15, 35],
+										popupAnchor: [0, -40]
+									});
+								case (2):
+									caution_marker = L.icon({
+										iconUrl: '../static/images/cross-road(2).png',
+										iconSize: [30, 45],
+										iconAnchor: [15, 35],
+										popupAnchor: [0, -40]
+									})
+								case (3):
+									caution_marker = L.icon({
+										iconUrl: '../static/images/cross-road(3).png',
+										iconSize: [30, 45],
+										iconAnchor: [15, 35],
+										popupAnchor: [0, -40]
+									})
+								case (4):
+									caution_marker = L.icon({
+										iconUrl: '../static/images/caution.png',
+										iconSize: [30, 45],
+										iconAnchor: [15, 35],
+										popupAnchor: [0, -40]
+									})
+								case (5):
+									caution_marker = L.icon({
+										iconUrl: '../static/images/caution(1).png',
+										iconSize: [30, 45],
+										iconAnchor: [15, 35],
+										popupAnchor: [0, -40]
+									})
+								case (6):
+									caution_marker = L.icon({
+										iconUrl: '../static/images/caution(2).png',
+										iconSize: [30, 45],
+										iconAnchor: [15, 35],
+										popupAnchor: [0, -40]
+									})
+								case (alldata['rank'][i][4] > 6):
+									caution_marker = L.icon({
+										iconUrl: '../static/images/caution(3).png',
+										iconSize: [30, 45],
+										iconAnchor: [15, 35],
+										popupAnchor: [0, -40]
+									})
+							}
+
 							marker = L.marker([alldata.coordinate[0], alldata.coordinate[1]]).addTo(map)
 								.bindPopup(`${alldata.coordinate[0]}, ${alldata.coordinate[1]}`)
 								.openPopup();
