@@ -18,6 +18,8 @@
     </link>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
 
+    <!-- Chart.js v2.9.3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <style>
         .marker-cluster-small {
             background-color: rgba(181, 226, 140, 0.6);
@@ -384,6 +386,57 @@
 
         });
     </script>
+
+    <canvas id="myChart" width="400" height="200"></canvas>
+    <script>
+        // 圖表js
+        var ctx = document.getElementById("myChart");
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [1, 2, 3, 4, 5],
+                datasets: [{
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 5,
+                    label: '標籤名稱',
+                    data: [100, 200, 300, 400, 500],
+                    fill: true, // 是否填滿色彩
+                    pointStyle: 'rect', // 點點樣式
+                    pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                }]
+            },
+            options: {
+                legend: {
+                    labels: {
+                        fontColor: 'white' // 標籤顏色 
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false, // X軸 線條不顯示 
+                        },
+                        ticks: {
+                            fontColor: "#CCC" // X軸 文字顏色 
+                        },
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            color: 'rgba(255, 255, 255, 0.1)' // Y軸 線條顏色 
+                        },
+                        ticks: {
+                            fontColor: "#CCC", // Y軸 文字顏色 
+                            beginAtZero: true // Y軸 從0開始
+                        },
+                    }]
+                }
+            }
+        });
+    </script>
+
+
 
 </body>
 

@@ -15,7 +15,6 @@
 	<!-- 載入jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
 	<!-- 縣市 js -->
 	<script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
 
@@ -24,6 +23,23 @@
 		integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
 	<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
 		integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+
+	<!-- Chart.js v2.9.3 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+	<style>
+		.chart-box.dark {
+			background-color: #172b4d;
+		}
+
+		.chart-header.dark {
+			border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+		}
+
+		.chart-header.dark h3.title {
+			color: #fff;
+		}
+	</style>
 
 </head>
 
@@ -80,11 +96,17 @@
 
 				<hr />
 
+
 				<!-- leaflet地圖 -->
 				<div id="map" class="box" style="height: 600px; width: 100%;"></div>
 
 
 				<div id="result"></div>
+				<div class="chart-box dark">
+					<div class="chart-body">
+						<canvas id="myChart" class="box" style="height: 400px; width: 100%;"></canvas>
+					</div>
+				</div>
 
 				<h3>車禍預測級距</h3>
 				<div class="table-wrapper">
@@ -92,7 +114,7 @@
 						<thead>
 							<tr>
 								<th>時間</th>
-								<th>人口密度</th>
+								<th>氣溫(℃)_x</th>
 								<th>測站氣壓(hPa)_x</th>
 								<th>相對溼度(%)_x</th>
 								<th>RANK</th>
@@ -151,24 +173,114 @@
 
 							// 清空 tbody 底下既有元素，如 tr td 等
 							tbody.innerHTML = '';
+							let chartlabel = [];
+							let chartdata = [];
 
 							// 將回傳資料動態生成在網頁上
 							for (let i = 0; i < 24; i++) {
 								//輸出對應的 html tag
 								let tr = document.createElement("tr");
 								tr.innerHTML = `<td>${alldata['發生時間'][i]}</td>
-												<td>${alldata['density']}</td>
+												<td>${alldata['氣溫(℃)_x'][i]}</td>
 												<td>${alldata['測站氣壓(hPa)_x'][i]}</td>
 												<td>${alldata['相對溼度(%)_x'][i]}</td>
 												<td>${alldata['rank'][i]}</td>`
 
 								tbody.appendChild(tr);
-
-
+								chartlabel.push(`${alldata['發生時間'][i]}時`)
+								chartdata.push(parseInt(alldata['rank'][i][4]))
 							}
+
+							// 取得 <div id="result"> 元素
+							let div_re = document.getElementById('result');
+
+							// 將資料印在 <div> 元素裡面
+							div_re.innerHTML = `人口密度 : ${alldata['density']} /每平方公里`;
+
+
+
+							// 圖表js
+							var ctx = document.getElementById("myChart");
+
+							var myChart = new Chart(ctx, {
+								type: 'line',
+								data: {
+									labels: chartlabel,
+									datasets: [{
+										backgroundColor: 'rgba(54, 162, 235, 0.2)',
+										borderColor: 'rgba(54, 162, 235, 1)',
+										borderWidth: 3,
+										label: '危險程度',
+										data: chartdata,
+										fill: true, // 是否填滿色彩
+										pointStyle: 'rect', // 點點樣式
+										pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+									}]
+								},
+								options: {
+									legend: {
+										labels: {
+											fontColor: 'white' // 標籤顏色 
+										}
+									},
+									scales: {
+										xAxes: [{
+											gridLines: {
+												display: false, // X軸 線條不顯示 
+											},
+											ticks: {
+												fontColor: "#CCC" // X軸 文字顏色 
+											},
+										}],
+										yAxes: [{
+											gridLines: {
+												color: 'rgba(255, 255, 255, 0.1)' // Y軸 線條顏色 
+											},
+											ticks: {
+												fontColor: "#CCC", // Y軸 文字顏色 
+												beginAtZero: true // Y軸 從0開始
+											},
+										}]
+									}
+								}
+							});
+							// var chart = new Chart(ctx, {
+							// 	type: "line", // 圖表類型
+							// 	data: {
+							// 		labels: chartlabel, //顯示區間名稱
+							// 		datasets: [
+							// 			{
+							// 				// label: "標籤名稱", // tootip 出現的名稱
+							// 				// data: chartdata, // 資料
+							// 				// backgroundColor: [
+							// 				// 	"rgba(255, 99, 132, 0.2)", // 第一個 bar 顏色
+							// 				// 	"rgba(54, 162, 235, 0.2)",
+							// 				// 	"rgba(255, 206, 86, 0.2)",
+							// 				// 	"rgba(75, 192, 192, 0.2)",
+							// 				// 	"rgba(153, 102, 255, 0.2)",
+							// 				// 	"rgba(255, 159, 64, 0.2)"
+							// 				// ],
+							// 				// borderColor: [
+							// 				// 	"rgba(255,99,132,1)",
+							// 				// 	"rgba(54, 162, 235, 1)",
+							// 				// 	"rgba(255, 206, 86, 1)",
+							// 				// 	"rgba(75, 192, 192, 1)",
+							// 				// 	"rgba(153, 102, 255, 1)",
+							// 				// 	"rgba(255, 159, 64, 1)"
+							// 				// ],
+							// 				// borderWidth: 2
+							// 			}
+							// 		]
+							// 	}
+							// });
+
+
+
+
 						})
 					})
 				</script>
+
 
 
 
