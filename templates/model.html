@@ -159,69 +159,110 @@
 						}).then(function (response) {
 							return response.json();
 						}).then(function (alldata) {
-							if (marker) {
-								marker.remove();
-								circle.remove();
-							}
+							// if (marker) {
+							// 	marker.remove();
+							// 	circle.remove();
+							// }
 
 							map.panTo([alldata.coordinate[0], alldata.coordinate[1]], 1);
 
-							switch (alldata['rank'][i][4]) {
-								case (1):
-									let caution_marker = L.icon({
+
+							let cautionIcon = L.icon({
+								iconUrl: '../static/images/caution(3).png',
+								iconSize: [64, 64],
+								iconAnchor: [32, 64],
+								popupAnchor: [0, -60]
+							});
+							let popstring = '非常危險';
+
+							switch (alldata['rank'][0][4]) {
+								case ('1'):
+									cautionIcon = L.icon({
 										iconUrl: '../static/images/cross-road(1).png',
-										iconSize: [30, 45],
-										iconAnchor: [15, 35],
-										popupAnchor: [0, -40]
+										iconSize: [64, 64],
+										iconAnchor: [32, 64],
+										popupAnchor: [0, -60]
 									});
-								case (2):
-									caution_marker = L.icon({
+									popstring = '非常安全';
+									break;
+								case ('2'):
+									cautionIcon = L.icon({
+										iconUrl: '../static/images/cross-road(1).png',
+										iconSize: [64, 64],
+										iconAnchor: [32, 64],
+										popupAnchor: [0, -60]
+									})
+									popstring = '非常安全';
+									break;
+								case ('3'):
+									cautionIcon = L.icon({
 										iconUrl: '../static/images/cross-road(2).png',
-										iconSize: [30, 45],
-										iconAnchor: [15, 35],
-										popupAnchor: [0, -40]
+										iconSize: [64, 64],
+										iconAnchor: [32, 64],
+										popupAnchor: [0, -60]
 									})
-								case (3):
-									caution_marker = L.icon({
+									popstring = '安全';
+									break;
+								case ('4'):
+									cautionIcon = L.icon({
 										iconUrl: '../static/images/cross-road(3).png',
-										iconSize: [30, 45],
-										iconAnchor: [15, 35],
-										popupAnchor: [0, -40]
+										iconSize: [64, 64],
+										iconAnchor: [32, 64],
+										popupAnchor: [0, -60]
 									})
-								case (4):
-									caution_marker = L.icon({
+									popstring = '安全';
+									break;
+								case ('5'):
+									cautionIcon = L.icon({
 										iconUrl: '../static/images/caution.png',
-										iconSize: [30, 45],
-										iconAnchor: [15, 35],
-										popupAnchor: [0, -40]
+										iconSize: [64, 64],
+										iconAnchor: [32, 64],
+										popupAnchor: [0, -60]
 									})
-								case (5):
-									caution_marker = L.icon({
+									popstring = '需注意';
+									break;
+								case ('6'):
+									cautionIcon = L.icon({
+										iconUrl: '../static/images/caution.png',
+										iconSize: [64, 64],
+										iconAnchor: [32, 64],
+										popupAnchor: [0, -60]
+									})
+									popstring = '需注意';
+									break;
+								case ('7'):
+									cautionIcon = L.icon({
 										iconUrl: '../static/images/caution(1).png',
-										iconSize: [30, 45],
-										iconAnchor: [15, 35],
-										popupAnchor: [0, -40]
+										iconSize: [64, 64],
+										iconAnchor: [32, 64],
+										popupAnchor: [0, -60]
 									})
-								case (6):
-									caution_marker = L.icon({
+									popstring = '小心行駛';
+									break;
+								case ('8'):
+									cautionIcon = L.icon({
+										iconUrl: '../static/images/caution(1).png',
+										iconSize: [64, 64],
+										iconAnchor: [32, 64],
+										popupAnchor: [0, -60]
+									})
+									popstring = '危險';
+									break;
+								case ('9'):
+									cautionIcon = L.icon({
 										iconUrl: '../static/images/caution(2).png',
-										iconSize: [30, 45],
-										iconAnchor: [15, 35],
-										popupAnchor: [0, -40]
+										iconSize: [64, 64],
+										iconAnchor: [32, 64],
+										popupAnchor: [0, -60]
 									})
-								case (alldata['rank'][i][4] > 6):
-									caution_marker = L.icon({
-										iconUrl: '../static/images/caution(3).png',
-										iconSize: [30, 45],
-										iconAnchor: [15, 35],
-										popupAnchor: [0, -40]
-									})
+									popstring = '很危險';
+									break;
 							}
 
-							marker = L.marker([alldata.coordinate[0], alldata.coordinate[1]]).addTo(map)
-								.bindPopup(`${alldata.coordinate[0]}, ${alldata.coordinate[1]}`)
+							marker = L.marker([alldata.coordinate[0], alldata.coordinate[1]], { icon: cautionIcon }).addTo(map)
+								.bindPopup(`${alldata.coordinate[0]}, ${alldata.coordinate[1]}</br> ${popstring}`)
 								.openPopup();
-							circle = L.circle([alldata.coordinate[0], alldata.coordinate[1]], { radius: 200 }).addTo(map);
+							circle = L.circle([alldata.coordinate[0], alldata.coordinate[1]], { radius: 500 }).addTo(map);
 
 							// 清空 tbody 底下既有元素，如 tr td 等
 							tbody.innerHTML = '';
@@ -247,7 +288,7 @@
 							let div_re = document.getElementById('result');
 
 							// 將資料印在 <div> 元素裡面
-							div_re.innerHTML = `人口密度 : ${alldata['density']} /每平方公里`;
+							div_re.innerHTML = `人口密度 : ${alldata['density']} /每平方公里 ${alldata['rank'][0][4]}`;
 
 
 
