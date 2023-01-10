@@ -7,7 +7,6 @@ import geocoder
 import use_model.xgdata as weather
 
 
-
 app = Flask(__name__)
 moment = Moment(app)
 
@@ -29,7 +28,7 @@ def option():
     return render_template('optiontest.html')
 
 # 接收location.html的year loc選項 並抓取該資料庫table的值
-@app.route('/option/<loc_year>')
+@app.route('/option/<loc_year>',methods=['GET'])
 def location_year(loc_year):
     table_location = db.Table(f'{loc_year}', metadata , autoload=True , autoload_with=engine)
     query = db.select(table_location.c.lat, table_location.c.lng)
@@ -50,7 +49,7 @@ def model():
     return render_template('model.html')
 
 # 接收模型網頁選項輸入的值
-@app.route('/model/<city_dist>/<road>')
+@app.route('/model/<city_dist>/<road>',methods=['GET'])
 def model_address(city_dist,road):
 
     # 收到使用者輸入的地址轉成座標

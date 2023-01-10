@@ -111,7 +111,6 @@
 				<!-- Text stuff -->
 				<!-- <h2>Text</h2> -->
 
-
 				<select class="year_option" id="year_Select">
 					<option selected>請選擇年份</option>
 					<option value="2018">2018</option>
@@ -196,7 +195,7 @@
 								arrLayers = [];
 							}
 
-							document.getElementById('accident_count').innerText = '車禍數 : ' + arr.length / 2;
+							document.getElementById('accident_count').innerText = `當年度車禍數 : ${arr.length / 2} 件`;
 
 							var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, showCoverageOnHover: false, zoomToBoundsOnClick: false });
 
@@ -412,7 +411,6 @@
 					});
 
 				</script>
-
 
 				<hr />
 				<header>

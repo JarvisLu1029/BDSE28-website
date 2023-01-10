@@ -3,9 +3,10 @@ import pandas as pd
 from scipy import spatial
 import pandas as pd
 import openpyxl
-import datetime
 import requests , json
 import pickle
+import pytz
+from datetime import datetime ,timedelta
 
 stream = pd.read_csv('110.csv', low_memory=False)
 stream['總計_流量(PCU)'] = stream['總計_流量(PCU)'].str.findall('\d').str.join('').astype(int)
@@ -20,8 +21,9 @@ def population(county_dist , coo):
     else:
         density = 0
 
+    tz = pytz.timezone('Asia/Taipei')
     # 取得當前日期
-    today = datetime.datetime.today()
+    today = datetime.now(tz)
     
     # 計算隔天日期
     # tomorrow = today + datetime.timedelta(days=1)
@@ -266,13 +268,13 @@ def weatherAPI(df1):
     # 密鑰
 #     key = '4KD3GK5WQ8HX23YXVEVS3ZYPM'
     key = 'NZKHHNNZV9ZXDRGDM4NJTT9YR'
+    tz = pytz.timezone('Asia/Taipei')
     # 緯度，經度
     a1 = f"{df1.iloc[0,14]},{df1.iloc[0,13]}"
     # 時間
     t1 = f"{df1.iloc[0,9]}-{df1.iloc[0,10]}-{df1.iloc[0,11]}"
-    day = datetime.datetime.strptime(t1, '%Y-%m-%d')
-    delta = datetime.timedelta(days=1)
-    day1 = day + delta
+    # day = datetime.now(tz).strptime(t1, '%Y-%m-%d')
+    day1 = datetime.now(tz)+timedelta(days=1)
     t2 = day1.strftime('%Y-%m-%d')
     # 單位
     unitGroup = 'metric'
