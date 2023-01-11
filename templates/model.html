@@ -104,6 +104,7 @@
 				<li><a href="/">This is BDSE28 Group4</a></li>
 				<li><a href="location">各縣市車禍分佈</a></li>
 				<li class="active"><a href="model">車禍數據模型</a></li>
+				<li><a href="team">組員介紹</a></li>
 
 			</ul>
 			<ul class="icons">
@@ -245,7 +246,7 @@
 							});
 							let popstring = '非常危險';
 							// 依照不同級別顯示不同Icon
-							switch (alldata['rank'][0][4]) {
+							switch (alldata['rank'][0].match(/rank(\d+)/)[1]) {
 								case ('1'):
 									cautionIcon = L.icon({
 										iconUrl: '../static/images/cross-road(1).png',
@@ -400,6 +401,7 @@
 									labels: chartlabel,
 
 									datasets: [{
+										label: '',
 										backgroundColor: 'rgba(255, 255, 255, 0.2)',
 										borderColor: 'rgba(54, 162, 235, 1)',
 										// borderWidth: 1,
@@ -432,8 +434,7 @@
 												case (10): return '#FF1D00'
 													break;
 											};
-											// return value;
-											// ? 'red' : 'blue';
+
 										},
 									}],
 								},
